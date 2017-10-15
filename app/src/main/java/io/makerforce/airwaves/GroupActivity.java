@@ -1,6 +1,7 @@
 package io.makerforce.airwaves;
 
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -63,6 +64,8 @@ public class GroupActivity extends AppCompatActivity {
             public void onClick(View view) {
                 mSocket.emit("joingroup", groupIDText.getText());
                 // TODO: Start a second activity
+                Intent intent = new Intent(GroupActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 

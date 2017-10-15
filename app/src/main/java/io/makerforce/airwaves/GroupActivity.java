@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 import java.net.URISyntaxException;
@@ -55,7 +54,6 @@ public class GroupActivity extends AppCompatActivity {
 //        }
 
         mediaPlayer = MediaPlayer.create(this, R.raw.test);
-        final Button joinButton = (Button) findViewById(R.id.joinButton);
         final EditText groupIDText = (EditText) findViewById(R.id.groupIDText);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

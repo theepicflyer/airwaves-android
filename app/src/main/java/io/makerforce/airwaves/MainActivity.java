@@ -4,12 +4,20 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
-import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView mTextMessage;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter songAdapter;
+    private RecyclerView.LayoutManager layoutManager;
+
+    ArrayList<Song> queue = new ArrayList<Song>();
+    ArrayList<Song> music = new ArrayList<Song>();
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -18,13 +26,13 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.queue:
-                    mTextMessage.setText(R.string.title_queue);
+                    updateData(queue);
                     return true;
                 case R.id.music:
-                    mTextMessage.setText(R.string.title_music);
+                    updateData(music);
                     return true;
                 case R.id.devices:
-                    mTextMessage.setText(R.string.title_devices);
+                    //DO WHAT??
                     return true;
             }
             return false;
@@ -37,9 +45,37 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(getApplicationContext()); //no of columns
+        recyclerView.setLayoutManager(layoutManager);
+        Song pew = new Song("I Really Like You", "Carly Rae Jepsen", "EMOTION", "fdsjfsjk", "3:41");
+        queue.add(pew);
+        queue.add(pew);
+        queue.add(pew);
+        queue.add(pew);
+        queue.add(pew);
+        queue.add(pew);
+        queue.add(pew);
+        Song daft = new Song("Give Life Back to Music", "Daft Punk", "Random Access Memories", "fdsdfsdf", "4:34");
+        music.add(daft);
+        music.add(daft);
+        music.add(daft);
+        music.add(daft);
+        music.add(daft);
+        music.add(daft);
+        music.add(daft);
+        songAdapter = new SongAdapter(getApplicationContext(), queue);
+        recyclerView.setAdapter(songAdapter);
+    }
+
+    public void updateData(ArrayList<Song> list) {
+        //modify queue
+        songAdapter = new SongAdapter(getApplicationContext(), list);
+        recyclerView.swapAdapter(songAdapter, false);
     }
 
 }
